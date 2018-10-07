@@ -13,14 +13,12 @@ class ShoppingView {
     }
 
     addRow(item, parent) {
-        console.log(item);
         let row = document.createElement("tr")
         row.classList.add(item.priority)
         row.onclick = function() {
             let cbCell = row.cells[0].firstChild;
             cbCell.click();
         }
-    
         let cb = document.createElement("input")
         cb.type = "checkbox"
         cb.id = "checkbox"
