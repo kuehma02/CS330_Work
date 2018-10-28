@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class='table table-striped'>
+        <thead>
+            <tr><th>Prime Numbers</th></tr>
+        </thead>
+
+        <tbody id='primetbl'>
+            {% for prime in primeList %}
+            <tr>
+                <td>{{ prime }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+ </table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/ask" method="POST">
+    <div class="container">
+        <input type="text" name="numPrimes" placeholder="How many primes?">
+        <input type="submit" name="click" class="btn btn-info">
+    </div>
+</form>
+
+
+{% endblock %}
