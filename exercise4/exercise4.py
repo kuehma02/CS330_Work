@@ -13,7 +13,6 @@ def is_prime(n: int) -> bool:
             return False
     return True
 
-
 def get_n_primes(n: int) -> list:
     primeList = []
     num = 1
@@ -24,7 +23,7 @@ def get_n_primes(n: int) -> list:
     return primeList
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
     if 'number' in request.args:
         num = request.args['number']
@@ -35,7 +34,6 @@ def index():
             return make_response(redirect(url_for('get_primes', n=numPrimes)))
         else:
             return make_response(redirect(url_for('ask_a_number'))) 
-
 
 @app.route('/<int:n>', methods=['GET'])
 def get_primes(n):
@@ -54,9 +52,6 @@ def ask_a_number():
             return redirect(url_for('index', number = enteredNum))
         else:
             return render_template('ask.html')   
-
-
-
 
 if __name__ == '__main__':
     app.run()
