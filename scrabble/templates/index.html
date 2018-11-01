@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='mt-5 container'>
+    <div class='form'>
+        <div class='row'>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter1'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter2'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter3'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter4'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter5'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter6'>
+            </div>
+            <div class='col'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Letter" id='letter7'>
+            </div>
+        </div>
+        <div class='row mt-5'>
+            <div class="col form-control-lg">
+                <input type="checkbox" onclick='toggleDisabled()' value="attach" id="attachExistingCheck">
+                <label for="attachExistingCheck">Attach to existing</label>
+            </div>
+            <script>
+                function toggleDisabled() {
+                    isDisabled = document.getElementById("existingletters").disabled
+                    if (isDisabled){
+                        document.getElementById("existingletters").disabled = false;
+                    } else{
+                        document.getElementById("existingletters").disabled = true;
+                    }
+                }
+            </script>
+            <div class='col-9'>
+                <input type="text" class='form-control form-control-lg border border-dark rounded' placeholder="Existing letter(s)" id='existingletters' disabled>
+            </div>
+        </div>
+        <div class='row mt-5'>
+            <select class="form-control form-control-lg">
+                <option value='american-english'>American</option>
+                <option value='british-english'>British</option>
+            </select>
+        </div>
+        <div class='row mt-5'>
+                <button type="button" class="btn btn-primary btn-lg btn-block rounded">Help me!</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
