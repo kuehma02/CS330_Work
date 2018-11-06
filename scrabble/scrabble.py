@@ -8,8 +8,10 @@ import operator
 
 app = Flask(__name__)
 
-amerWords = [line.strip() for line in open('/usr/share/dict/american-english', 'r')]
-britWords = [line.strip() for line in open('/usr/share/dict/british-english', 'r')]
+#amerWords = {line.strip() for line in open('/usr/share/dict/american-english', 'r')}
+#britWords = {line.strip() for line in open('/usr/share/dict/british-english', 'r')}
+amerWords = {line.strip() for line in open('../american-english.txt', 'r')}
+britWords = {line.strip() for line in open('../british-english.txt', 'r')}
 points = {'*':0, 'e':1, 'a':1, 'i':1, 'o':1, 'n':1, 'r':1, 't':1, 'l':1,
          's':1, 'u':1, 'd':2, 'g':2, 'b':3, 'c':3, 'm':3, 'p':3, 'f':4,
          'h':4, 'v':4, 'w':4, 'y':4, 'k':5, 'j':8, 'x':8, 'q':10, 'z':10}
@@ -40,23 +42,42 @@ def getWords(perm, dictname):
     return actualWords
     
 def wordPosibilites(let1, let2, let3, let4, let5, let6, let7, exist = ""):
-    items = [let1, let2, let3, let4, let5, let6, let7]
+    params = [let1, let2, let3, let4, let5, let6, let7]
+    items =[]
+    haveWild = False
+    for param in params:
+        isWildcard = False
+        if param == '*':
+            isWildcard = True
+            haveWild = True
+        if param != "" and not isWildcard:
+            items.append(param)
     letterCombos = set()
+
+    for i in range(len(items)):
+        letterCombos.update(list(map("".join, itertools.permutations(items, i+1))))
+    
+    if haveWild:
+        print(len(letterCombos))
+        listLetterCombos = list(letterCombos)
+        for combo in range(len(letterCombos)):
+            for ch in "abcdefghijklmnopqrstuvwxyz":
+                letterCombos.update(list(map("".join, itertools.permutations([listLetterCombos[combo], ch], 2))))
+        
+        print(len(letterCombos))
+
     if exist == "":
-        for i in range(len(items)):
-            letterCombos.update(list(map("".join, itertools.permutations(items, i+1))))
-
+        return letterCombos
+    
     else:
-        for i in range(len(items)):
-            words= list(map("".join, itertools.permutations([items[i], exist], 2)))
-            print(words)
-            letterCombos.update(words)
         print(letterCombos)
-    #return letterCombos
+        listLetterCombos = list(letterCombos)
+        existLetterCombo = set()
+        for combo in range(len(letterCombos)):
+            existLetterCombo.update(list(map("".join, itertools.permutations([listLetterCombos[combo], exist], 2))))
 
+        return existLetterCombo
 
-
-   
    
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -96,21 +117,10 @@ def makeresults():
             permutations = wordPosibilites(let1, let2, let3, let4, let5, let6, let7, existing)
         else:
             permutations = wordPosibilites(let1, let2, let3, let4, let5, let6, let7)
-        
-        print(len(permutations))
         playableWords = getWords(permutations, request.args['dict'])
-        print(len(playableWords))
-        print(playableWords)
-
         wordInfo = wordInformation(playableWords)
-        print()
-        print()
         sorted_info = sorted(wordInfo, key=operator.itemgetter(2), reverse=True)
-        print()
-        print()
-
-        #print('made it to results')
-        #return render_template('results.html', resultsList = sorted_info)
+        return render_template('results.html', resultsList = sorted_info)
 
     else:
         let1 = request.form['letter1']
@@ -122,7 +132,7 @@ def makeresults():
         let7 = request.form['letter7']
         diction = request.form['dict']
         check = request.form.get('attachExistingCheck')
-        print(check)
+
         if check == None:
             return make_response(redirect(url_for('makeresults', let1 = let1, let2 = let2, let3 = let3, let4 = let4, let5 = let5, let6 = let6, let7 = let7, dict=diction)))
         else:

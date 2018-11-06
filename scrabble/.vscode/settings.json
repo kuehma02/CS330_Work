@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/home/kuehma02/.local/share/virtualenvs/scrabble-VEus_Ti0/bin/python",
+    "python.pythonPath": "/usr/local/bin/python3",
     "python.linting.enabled": false
 }
