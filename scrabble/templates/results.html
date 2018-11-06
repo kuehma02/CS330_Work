@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block content %}
+{% block table %}
 
 <table class="table table-striped">
     <thead>
@@ -8,11 +8,13 @@
             <th>Word</th>
             <th>Length</th>
             <th>Value</th>
-        </tr>>
+        </tr>
     </thead>
     <tbody id="words">
-        {% for item in resultsList %}
+        {% for item in resultsList %} 
+       
         <tr>
+
             <td>{{item[0]}}</td>
             <td>{{item[1]}}</td>
             <td>{{item[2]}}</td>
