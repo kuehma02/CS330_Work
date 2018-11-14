@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block results %}
+
+<div id="container">
+    <div class="alert alert-info" style="text-align:center">
+        <h3>Pick a Continent</h3>
+        
+    </div>
+    <div class="container">
+        <form action="/" method="POST">
+            <div class="row">
+                <div class="col">
+                    <select class="form-control" name="continent">
+                        {% for o in options %}
+                        <option value="{{o[0]}}">{{o[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="submit" class="btn" value="Get Info!">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
