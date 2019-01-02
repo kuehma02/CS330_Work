@@ -1,3 +1,3 @@
 # MidtermMashup API
 
-A simple API Mashup to create a resturant finder, reviwer, and weather app.
+An API Mashup that gives information, reviews and weather about various restaurants in an area.
